@@ -20,7 +20,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-res.setHeader('Access-Control-Allow-Headers', req.header.origin)
+
 /**
  * Listen on provided port, on all network interfaces.
  */
