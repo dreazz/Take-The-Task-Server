@@ -2,13 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Task = require('../models/task');
 const mongoose = require('mongoose')
-const cors = require('cors')
-var corsOptions = {
-  origin: 'https://take-the-task.firebaseapp.com/*',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
 
-router.get("/", cors(corsOptions),(req, res, next) => {
+router.get("/", (req, res, next) => {
   Task.find()
     .then((tasks) => {
       res.json(tasks)
@@ -26,7 +21,7 @@ router.get("/", cors(corsOptions),(req, res, next) => {
 //     })
 // })
 
-router.post("/", cors(corsOptions), (req, res, next) => {
+router.post("/", (req, res, next) => {
   const { title, body } = req.body;
   Task.create({ title, body })
     .then(() => {
@@ -35,14 +30,14 @@ router.post("/", cors(corsOptions), (req, res, next) => {
     })
     .catch(next);
 })
-router.delete('/:task_id', cors(corsOptions), (req, res, next) => {
+router.delete('/:task_id', (req, res, next) => {
   const id = mongoose.Types.ObjectId(req.params.task_id);
   Task.findByIdAndDelete({ _id: id })
     .then(() => res.status(200).send())
     .catch(next);
 })
 
-router.put('/:task_id', cors(corsOptions), (req, res, next) => {
+router.put('/:task_id', (req, res, next) => {
   console.log(req.params.task_id)
   const id = mongoose.Types.ObjectId(req.params.task_id);
   const {title,body} = req.body
@@ -52,7 +47,7 @@ router.put('/:task_id', cors(corsOptions), (req, res, next) => {
   })
 })
 
-router.get("/:owner_id", cors(corsOptions), (req, res, next) => {
+router.get("/:owner_id", (req, res, next) => {
   Task.find({ owner_id: req.session.currentUSer_id })
     .then((task) => {
       res.json(task)

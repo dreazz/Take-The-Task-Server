@@ -29,11 +29,11 @@ const app = express();
 
 app.use(cors({
   credentials: true,
-  origin: 'https://take-the-task.firebaseapp.com/',
+  origin: process.env.PUBLIC_DOMAIN,
 
 }));
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://take-the-task.firebaseapp.com/');
+  res.setHeader('Access-Control-Allow-Origin', process.env.PUBLIC_DOMAIN);
   res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,OPTIONS,DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.setHeader('Access-Control-Allow-Credentials', true);
