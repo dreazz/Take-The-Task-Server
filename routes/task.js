@@ -4,7 +4,7 @@ const Task = require('../models/task');
 const mongoose = require('mongoose')
 const cors = require('cors')
 var corsOptions = {
-  origin: 'https://take-the-task.firebaseapp.com/',
+  origin: 'https://take-the-task.firebaseapp.com/*',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
