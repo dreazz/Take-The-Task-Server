@@ -26,9 +26,10 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 const app = express();
 
+
 app.use(cors({
   credentials: true,
-  origin: [process.env.PUBLIC_DOMAIN],
+  origin: 'https://take-the-task.firebaseapp.com/',
 
 }));
 app.use((req, res, next) => {
