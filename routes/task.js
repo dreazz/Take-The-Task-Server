@@ -38,13 +38,32 @@ router.delete('/:task_id', (req, res, next) => {
 })
 
 router.put('/:task_id', (req, res, next) => {
-  console.log(req.params.task_id)
   const id = mongoose.Types.ObjectId(req.params.task_id);
-  const {title,body} = req.body
-  Task.findByIdAndUpdate({ _id: id },{title:title,body:body})
-  .then(() => {
-    res.status(200).send();
-  })
+  if (req.body.status) {
+    console.log("im in status: ", req.body.status)
+    const { status } = req.body
+    Task.findByIdAndUpdate({ _id: id }, { status:status})
+      .then(() => {
+        res.status(200).send();
+      })
+      .catch((error) => {
+        res.status(404).json({
+          error: 'not-found'
+        })
+      })
+  }
+  else {
+    const { title, body } = req.body
+    Task.findByIdAndUpdate({ _id: id }, { title: title, body: body })
+      .then(() => {
+        res.status(200).send();
+      })
+      .catch((error) => {
+        res.status(404).json({
+          error: 'not-found'
+        })
+      })
+  }
 })
 
 router.get("/:owner_id", (req, res, next) => {
@@ -62,6 +81,9 @@ router.get("/:owner_id", (req, res, next) => {
 
 })
 
+router.put('/:id', (req, res, next) => {
+
+})
 
 
 module.exports = router;
