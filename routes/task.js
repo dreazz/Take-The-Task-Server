@@ -12,14 +12,6 @@ router.get("/", (req, res, next) => {
     .catch(next);
 
 })
-// router.post("/", (req, res, next) => {
-//   const { title, body, category, status, owner_id } = req.body;
-//   Task.create({ title, body, category, status, owner_id })
-//     .then(() => {
-//       console.log(title, body, category, status, owner_id)
-//       res.status(200).send();
-//     })
-// })
 
 router.post("/", (req, res, next) => {
   const { title, body } = req.body;
@@ -42,7 +34,7 @@ router.put('/:task_id', (req, res, next) => {
   if (req.body.status) {
     console.log("im in status: ", req.body.status)
     const { status } = req.body
-    Task.findByIdAndUpdate({ _id: id }, { status:status})
+    Task.findByIdAndUpdate({ _id: id }, { status: status })
       .then(() => {
         res.status(200).send();
       })
