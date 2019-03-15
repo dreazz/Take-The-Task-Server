@@ -7,10 +7,29 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const nodemailer = require('nodemailer')
 const cors = require('cors');
 require('dotenv').config();
 
-
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+         user: 'takethetaskinfo@gmail.com',
+         pass: process.env.GMAIL_PASSWORD
+     }
+ });
+ const mailOptions = {
+  from: 'takethetaskinfo@gmail.com', // sender address
+  to: 'agustinsilveira.96@gmail.com', // list of receivers
+  subject: 'Test', // Subject line
+  html: '<p>This is a test bro</p>'// plain text body
+};
+transporter.sendMail(mailOptions, function (err, info) {
+  if(err)
+    console.log(err)
+  else
+    console.log(info);
+});
 const taskRouter = require('./routes/task')
 
 mongoose.connect(process.env.MONGODB_URI, {
